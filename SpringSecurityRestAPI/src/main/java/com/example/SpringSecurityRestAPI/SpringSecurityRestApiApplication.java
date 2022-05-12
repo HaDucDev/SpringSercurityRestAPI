@@ -3,6 +3,7 @@ package com.example.SpringSecurityRestAPI;//SpringSecurityRestApiApplication
 import com.example.SpringSecurityRestAPI.model.Book;
 import com.example.SpringSecurityRestAPI.model.Role;
 import com.example.SpringSecurityRestAPI.model.User;
+import com.example.SpringSecurityRestAPI.repository.UserRepository;
 import com.example.SpringSecurityRestAPI.service.BookService;
 import com.example.SpringSecurityRestAPI.service.RoleService;
 import com.example.SpringSecurityRestAPI.service.UserService;
@@ -21,6 +22,10 @@ public class SpringSecurityRestApiApplication  {
 	private BookService bookService;
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	UserRepository userRepository;
+
 	@Autowired
 	private RoleService roleService;
 
@@ -35,13 +40,17 @@ public class SpringSecurityRestApiApplication  {
 			roleService.saveOrUpdate(new Role(2L, "user"));
 
 			User user1 = new User();
-
 			user1.setEmail("ducuser123@user.com");
 			user1.setName("duc123");
 			user1.setMobile("0123456789");
 			user1.setRole(roleService.findById(2L).get());
 			user1.setPassword(new BCryptPasswordEncoder().encode("duc123"));
-			userService.saveOrUpdate(user1);
+			User user = userRepository.findByEmail(user1.getEmail());
+			if(user == null)
+			{
+				userService.saveOrUpdate(user1);
+			}
+
 
 			User user2 = new User();
 			user2.setEmail("ducadmin123@admin.com");
@@ -49,7 +58,13 @@ public class SpringSecurityRestApiApplication  {
 			user2.setMobile("987654321");
 			user2.setRole(roleService.findById(1L).get());
 			user2.setPassword(new BCryptPasswordEncoder().encode("duc123"));
-			userService.saveOrUpdate(user2);
+			User admin = userRepository.findByEmail(user2.getEmail());
+			if(user == null)
+			{
+				userService.saveOrUpdate(user2);
+			}
+
+			// tuong tu co the lam voi ten sach
 
 			Book book = new Book();
 			book.setTitle("Clean code");
