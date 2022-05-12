@@ -34,7 +34,8 @@ public class BookController {
     }
 
     @GetMapping("{id}")// cai nay do get tren nen duoi cung phai dang nhap theo
-    public ResponseEntity<Book> findById(Long id) {
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<Book> findById(@PathVariable Long id) {
         log.info("BookResourceImpl - findById");
         Optional<Book> book = bookService.findById(id);
         if(!book.isPresent()) {
@@ -45,7 +46,7 @@ public class BookController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Book> save(Book book) {
+    public ResponseEntity<Book> save(@RequestBody  Book book) {
         log.info("BookResourceImpl - save");
         if(book.getId() != null) {
             throw new ApplicationException("Book ID found, ID is not required for save the data");
@@ -55,7 +56,7 @@ public class BookController {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Book> update(Book book) {
+    public ResponseEntity<Book> update( @RequestBody Book book) {
         log.info("BookResourceImpl - update");
         if(book.getId() == null) {
             throw new ApplicationException("Book ID not found, ID is required for update the data");
@@ -65,7 +66,7 @@ public class BookController {
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<String> deleteById(Long id) {
+    public ResponseEntity<String> deleteById(@PathVariable Long id) {
         log.info("BookResourceImpl - deleteById");
         Optional<Book> book = bookService.findById(id);
         if(!book.isPresent()) {// neu bien book khong co gia tri

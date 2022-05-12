@@ -3,6 +3,7 @@ package com.example.SpringSecurityRestAPI;//SpringSecurityRestApiApplication
 import com.example.SpringSecurityRestAPI.model.Book;
 import com.example.SpringSecurityRestAPI.model.Role;
 import com.example.SpringSecurityRestAPI.model.User;
+import com.example.SpringSecurityRestAPI.repository.BookRepository;
 import com.example.SpringSecurityRestAPI.repository.UserRepository;
 import com.example.SpringSecurityRestAPI.service.BookService;
 import com.example.SpringSecurityRestAPI.service.RoleService;
@@ -25,6 +26,9 @@ public class SpringSecurityRestApiApplication  {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	BookRepository bookRepository;
 
 	@Autowired
 	private RoleService roleService;
@@ -54,12 +58,12 @@ public class SpringSecurityRestApiApplication  {
 
 			User user2 = new User();
 			user2.setEmail("ducadmin123@admin.com");
-			user2.setName("duc amdin");
+			user2.setName("duc admin");
 			user2.setMobile("987654321");
 			user2.setRole(roleService.findById(1L).get());
 			user2.setPassword(new BCryptPasswordEncoder().encode("duc123"));
 			User admin = userRepository.findByEmail(user2.getEmail());
-			if(user == null)
+			if(admin == null)
 			{
 				userService.saveOrUpdate(user2);
 			}
@@ -73,7 +77,11 @@ public class SpringSecurityRestApiApplication  {
 			book.setIsbnNumber(1617293989L);
 			book.setPrice(10000.00);
 			book.setLanguage("English");
-			bookService.saveOrUpdate(book);
+			Book book1 = bookRepository.findByTitle(book.getTitle());
+			if(book1 == null)
+			{
+				bookService.saveOrUpdate(book);
+			}
 		};
 	}
 }

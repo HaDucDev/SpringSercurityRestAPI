@@ -13,9 +13,12 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
+@Table(uniqueConstraints = {
+        @UniqueConstraint(name = "unique_title_constraint", columnNames = "title")
+})
 public class Book {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
