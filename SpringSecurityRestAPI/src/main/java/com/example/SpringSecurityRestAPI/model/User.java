@@ -12,6 +12,9 @@ import javax.persistence.*;
 @Setter
 @Entity
 @NoArgsConstructor
+@Table(uniqueConstraints = {
+        @UniqueConstraint(name = "unique_email_constraint", columnNames = "email")
+})
 public class User {
 
     @Id
