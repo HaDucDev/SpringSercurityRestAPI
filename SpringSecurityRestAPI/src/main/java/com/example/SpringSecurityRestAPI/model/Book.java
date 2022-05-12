@@ -19,16 +19,16 @@ public class Book {
     private Long id;
 
     @NotNull
-    private String title;
+    private String title;// chu de
 
     @NotNull
-    private String author;
+    private String author;// tac gia
 
     @NotNull
-    private String coverPhotoURL;
+    private String coverPhotoURL;// link anh
 
     @NotNull
-    private Long isbnNumber;
+    private Long isbnNumber;// sl
 
     @NotNull
     private Double price;
