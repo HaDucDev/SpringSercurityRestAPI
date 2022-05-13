@@ -44,7 +44,7 @@ public class BookController {
         return new ResponseEntity<>(book.get(), HttpStatus.OK);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping( consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Book> save(@RequestBody  Book book) {
         log.info("BookResourceImpl - save");
@@ -54,9 +54,9 @@ public class BookController {
         return new ResponseEntity<>(bookService.saveOrUpdate(book), HttpStatus.CREATED);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Book> update( @RequestBody Book book) {
+    public ResponseEntity<Book> update(@PathVariable Long id, @RequestBody Book book) {
         log.info("BookResourceImpl - update");
         if(book.getId() == null) {
             throw new ApplicationException("Book ID not found, ID is required for update the data");

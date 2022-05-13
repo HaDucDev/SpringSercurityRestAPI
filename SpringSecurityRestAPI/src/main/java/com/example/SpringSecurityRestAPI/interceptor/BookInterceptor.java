@@ -37,6 +37,7 @@ public class BookInterceptor implements HandlerInterceptor {
 //			response.sendRedirect("/rest/books/invalid");
 //		}
 //		return flag;
+
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 
