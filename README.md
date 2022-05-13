@@ -32,7 +32,7 @@ Một số API Test
  ![image](https://user-images.githubusercontent.com/73648565/168219017-943ab306-9e09-4114-8e1f-c17edd192d1c.png)
 
  
-4 PUT http://localhost:8080/books/
+4 PUT http://localhost:8080/books/1
 ![image](https://user-images.githubusercontent.com/73648565/168219334-648ab65b-8aeb-4f4d-8fc5-614b2c8807f9.png)
 
 5 DELETE http://localhost:8080/books/7
