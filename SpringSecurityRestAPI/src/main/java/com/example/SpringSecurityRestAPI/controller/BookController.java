@@ -74,18 +74,4 @@ public class BookController {
         }
         return new ResponseEntity<>(bookService.deleteById(id), HttpStatus.OK);
     }
-
-    @GetMapping("/invalid")
-    public ResponseEntity<String> invalid() {
-        log.info("BookResourceImpl - invalid");
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("message", "something is missing, please check everything before sending the request!!!");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(jsonObject.toString(), HttpStatus.OK);
-    }
-
-
 }
